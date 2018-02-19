@@ -143,6 +143,8 @@ function rgb(x)
   return "rgb(" + x + "," + x + "," + x + ")";
 }
 
+var kAlpha = { alpha: false }
+
 function draw()
 {
   var inputtext = document.getElementById("inputtext");
@@ -156,7 +158,7 @@ function draw()
   var src, dest, sctx, dctx;
   
   src = document.getElementById("capture");
-  sctx = src.getContext("2d");
+  sctx = src.getContext("2d", kAlpha);
   
   sctx.fillStyle = "white";
   sctx.fillRect(0,0,500,500);
@@ -169,7 +171,7 @@ function draw()
   
   if (gShowAntialiasView) {
     var imgData = sctx.getImageData(0, 0, kWidth, kHeight);
-    var pctx = subpixel.getContext("2d");
+    var pctx = subpixel.getContext("2d", kAlpha);
   
     for (var y = 0; y < kHeight; y++) {
       for (var x = 0; x < kWidth; x++) {
@@ -192,7 +194,7 @@ function draw()
   }
     
   dest = document.getElementById("textcanvas");
-  dctx = dest.getContext("2d");
+  dctx = dest.getContext("2d", kAlpha);
   
   dctx.fillStyle = kBackground;
   dctx.fillRect(0,0,2000,2000);
@@ -629,14 +631,14 @@ DirectWrite Natural Symmetric is '5'.
 </div>
 <div id="header">
 <h4 id="fontinfo">Font</h4>
-<textarea id="inputtext">PICS</textarea><canvas id="capture" width="200" height="40" moz-opaque="true"></canvas><img id="captureimage" />
+<textarea id="inputtext">PICS</textarea><canvas id="capture" width="200" height="40"></canvas><img id="captureimage" />
 <div>
 <button onclick="draw()">redraw</button>
 <button onclick="snap()">snapshot</button>
 <span id="status"></span>
 </div>
-<div><canvas id="textcanvas" width="1600" height="1200" moz-opaque="true"></canvas><img id="textimage" /></div>
-<div><canvas id="subpixel" width="600" height="120" moz-opaque="true"></canvas></div>
+<div><canvas id="textcanvas" width="1600" height="1200"></canvas><img id="textimage" /></div>
+<div><canvas id="subpixel" width="600" height="120"></canvas></div>
 <div id="nav">
 <div>
 <h4>Navigation</h4>
